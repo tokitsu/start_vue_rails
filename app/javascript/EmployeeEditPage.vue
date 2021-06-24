@@ -1,5 +1,5 @@
 <template>
-  <employee-form-pane :errors="errors" :employee="employee" @submit="createEmployee"></employee-form-pane>
+  <employee-form-pane :errors="errors" :employee="employee" @submit="updateEmployee"></employee-form-pane>
 </template>
 
 <script>
@@ -13,22 +13,17 @@ export default {
   },
   data: function () {
     return {
-      employee: {
-        name: '',
-        department: '',
-        gender: '',
-        birth: '',
-        joined_date: '',
-        payment: '',
-        note: '',
-      },
+      employee: {},
       errors: ''
     }
   },
+  mounted () {
+    axios.get(`api/v1/employees/${this.$route.params.id}.json`)
+    .then(response => (this.employee = response.data))
+  },
   methods: {
-    createEmployee: function(){
-      console.log("post")
-      axios.post('api/v1/employees', this.employee)
+    updateEmployee: function(){
+      axios.patch(`api/v1/employees/${this.employee.id}.json`, this.employee)
       .then(response => {
         let e = response.data;
         this.$router.push({
@@ -40,7 +35,7 @@ export default {
           this.errors = error.response.data.errors;
         }
       })
-    }
+    },
   }
 }
 </script>

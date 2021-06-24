@@ -11,6 +11,7 @@ import VueRouter from 'vue-router'
 import EmployeeIndexPage from 'EmployeeIndexPage.vue'
 import EmployeeDetailPage from 'EmployeeDetailPage.vue'
 import EmployeeNewPage from 'EmployeeNewPage.vue'
+import EmployeeEditPage from 'EmployeeEditPage.vue'
 
 const router = new VueRouter({
   routes: [
@@ -23,6 +24,9 @@ const router = new VueRouter({
     { path: '/employees/new',
       name: 'EmployeeNewPage',
       component: EmployeeNewPage  },
+    { path: '/employees/:id(\\d+)/edit',
+      name: 'EmployeeEditPage',
+      component: EmployeeEditPage  },
   ]
 })
 Vue.use(VueRouter)
